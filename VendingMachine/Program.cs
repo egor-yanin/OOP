@@ -3,6 +3,7 @@
     private Dictionary<Product, int> _goods;
     private int _totalMoney;
     private int _currentMoney;
+    private List<int> _acceptedCoins = new List<int> { 1, 2, 5, 10 };
 
     public VendingMachine(Dictionary<Product, int> initialGoods)
     {
@@ -24,10 +25,19 @@
                     info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штуки\n";
                 else info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штук\n";
             }
-            
+
         }
         return info;
     }
+
+    public void InsertCoin(int coin)
+    {
+        if (_acceptedCoins.Contains(coin))
+            _currentMoney += coin;
+        else
+            throw new ArgumentException("Недопустимая монета");
+    }
+    
 }
 
 public class Product
