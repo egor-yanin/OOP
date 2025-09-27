@@ -43,6 +43,28 @@
 
         public int CurrentMoney => _currentMoney;
 
+        public Product GetProductByName(string name)
+        {
+            foreach (var item in _goods.Keys)
+            {
+                if (item.Name == name)
+                    return item;
+            }
+            throw new ArgumentException("Товар не найден");
+        }
+
+        public void SelectProduct(Product product)
+        {
+            if (!_goods.ContainsKey(product) || _goods[product] == 0)
+                throw new InvalidOperationException("Товар отсутствует");
+
+            if (_currentMoney < product.Price)
+                throw new InvalidOperationException("Недостаточно средств");
+
+            _goods[product]--;
+            _currentMoney -= product.Price;
+            _totalMoney += product.Price;
+        }
     }
 
     public class Product
