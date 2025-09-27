@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Xunit;
+using VendingMachine;
 
 namespace VendingMachine.Tests
 {
@@ -85,6 +87,22 @@ namespace VendingMachine.Tests
                 "Кофе (60 руб.): 2 штуки\n" +
                 "Чай (25 руб.): 5 штук\n";
             string actual = vendingMachine.GetGoodsInfo();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void InsertCoin_AcceptsValidCoins_AndUpdatesCurrentMoney()
+        {
+            var goods = new Dictionary<Product, int>();
+            var vendingMachine = new VendingMachine(goods);
+
+            vendingMachine.InsertCoin(1);
+            vendingMachine.InsertCoin(2);
+            vendingMachine.InsertCoin(5);
+            vendingMachine.InsertCoin(10);
+            int expected = 18;
+            int actual = vendingMachine.CurrentMoney;
 
             Assert.Equal(expected, actual);
         }

@@ -1,53 +1,59 @@
-﻿public class VendingMachine
+﻿namespace VendingMachine
 {
-    private Dictionary<Product, int> _goods;
-    private int _totalMoney;
-    private int _currentMoney;
-    private List<int> _acceptedCoins = new List<int> { 1, 2, 5, 10 };
 
-    public VendingMachine(Dictionary<Product, int> initialGoods)
+    public class VendingMachine
     {
-        _totalMoney = 0;
-        _currentMoney = 0;
-        _goods = initialGoods;
-    }
+        private Dictionary<Product, int> _goods;
+        private int _totalMoney;
+        private int _currentMoney;
+        private List<int> _acceptedCoins = new List<int> { 1, 2, 5, 10 };
 
-    public string GetGoodsInfo()
-    {
-        string info = "Доступные товары:\n";
-        foreach (var item in _goods)
+        public VendingMachine(Dictionary<Product, int> initialGoods)
         {
-            if (item.Value > 0)
-            {
-                if (item.Value == 1)
-                    info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штука\n";
-                else if (item.Value >= 2 && item.Value <= 4)
-                    info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штуки\n";
-                else info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штук\n";
-            }
-
+            _totalMoney = 0;
+            _currentMoney = 0;
+            _goods = initialGoods;
         }
-        return info;
+
+        public string GetGoodsInfo()
+        {
+            string info = "Доступные товары:\n";
+            foreach (var item in _goods)
+            {
+                if (item.Value > 0)
+                {
+                    if (item.Value == 1)
+                        info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штука\n";
+                    else if (item.Value >= 2 && item.Value <= 4)
+                        info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штуки\n";
+                    else info += $"{item.Key.Name} ({item.Key.Price} руб.): {item.Value} штук\n";
+                }
+
+            }
+            return info;
+        }
+
+        public void InsertCoin(int coin)
+        {
+            if (_acceptedCoins.Contains(coin))
+                _currentMoney += coin;
+            else
+                throw new ArgumentException("Недопустимая монета");
+        }
+
+        public int CurrentMoney => _currentMoney;
+
     }
 
-    public void InsertCoin(int coin)
+    public class Product
     {
-        if (_acceptedCoins.Contains(coin))
-            _currentMoney += coin;
-        else
-            throw new ArgumentException("Недопустимая монета");
-    }
-    
-}
+        public string Name { get; }
+        public int Price { get; }
 
-public class Product
-{
-    public string Name { get; }
-    public int Price { get; }
-
-    public Product(string name, int price)
-    {
-        Name = name;
-        Price = price;
+        public Product(string name, int price)
+        {
+            Name = name;
+            Price = price;
+        }
     }
 }
