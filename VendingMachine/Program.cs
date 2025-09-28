@@ -81,9 +81,11 @@
                 _goods[product] = quantity;
         }
 
-        public void CollectMoney ()
+        public int CollectMoney()
         {
+            int collectedMoney = _totalMoney;
             _totalMoney = 0;
+            return collectedMoney;
         }
     }
 
