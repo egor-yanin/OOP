@@ -106,5 +106,51 @@ namespace VendingMachine.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void SelectProduct_WhenEnoughMoney_UpdatesStockAndMoney()
+        {
+            var product = new Product("Шоколад", 20);
+            var goods = new Dictionary<Product, int> { { product, 2 } };
+            var vendingMachine = new VendingMachine(goods);
+
+            vendingMachine.InsertCoin(10);
+            vendingMachine.InsertCoin(10);
+            vendingMachine.SelectProduct(product);
+
+            int expectedMoney = 0;
+            int actualMoney = vendingMachine.CurrentMoney;
+            int expectedStock = 1;
+            int actualStock = goods[product]; // Можно получить при просмотре списка товаров
+
+            Assert.Equal(expectedMoney, actualMoney);
+            Assert.Equal(expectedStock, actualStock);
+        }
+
+        [Fact]
+        public void SelectProduct_WhenNotEnoughMoney_ThrowsInvalidOperationException()
+        {
+            var product = new Product("Пирожок", 15);
+            var goods = new Dictionary<Product, int> { { product, 1 } };
+            var vendingMachine = new VendingMachine(goods);
+
+            vendingMachine.InsertCoin(10);
+
+            Assert.Throws<InvalidOperationException>(() => vendingMachine.SelectProduct(product));
+        }
+
+        [Fact]
+        public void SelectProduct_WhenOutOfStock_ThrowsInvalidOperationException()
+        {
+            var product = new Product("Мороженое", 30);
+            var goods = new Dictionary<Product, int> { { product, 0 } };
+            var vendingMachine = new VendingMachine(goods);
+
+            vendingMachine.InsertCoin(10);
+            vendingMachine.InsertCoin(10);
+            vendingMachine.InsertCoin(10);
+
+            Assert.Throws<InvalidOperationException>(() => vendingMachine.SelectProduct(product));
+        }
     }
 }
