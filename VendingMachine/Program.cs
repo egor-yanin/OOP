@@ -65,6 +65,26 @@
             _currentMoney -= product.Price;
             _totalMoney += product.Price;
         }
+
+        public int ReturnMoney()
+        {
+            int moneyToReturn = _currentMoney;
+            _currentMoney = 0;
+            return moneyToReturn;
+        }
+
+        public void RefillProduct(Product product, int quantity)
+        {
+            if (_goods.ContainsKey(product))
+                _goods[product] += quantity;
+            else
+                _goods[product] = quantity;
+        }
+
+        public void CollectMoney ()
+        {
+            _totalMoney = 0;
+        }
     }
 
     public class Product
