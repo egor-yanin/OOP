@@ -7,7 +7,7 @@ namespace VendingMachine.Tests
     public class VendingMachineTests
     {
         [Fact]
-        public void GetGoodsInfo_ReturnsCorrectInfo_ForSingleProduct()
+        public void GetGoodsInfo_ForSingleProduct_ReturnsCorrectInfo()
         {
             var product = new Product("Чипсы", 50);
             var goods = new Dictionary<Product, int> { { product, 1 } };
@@ -20,7 +20,7 @@ namespace VendingMachine.Tests
         }
 
         [Fact]
-        public void GetGoodsInfo_ReturnsCorrectInfo_ForMultipleProducts()
+        public void GetGoodsInfo_ForMultipleProducts_ReturnsCorrectInfo()
         {
             var product1 = new Product("Сок", 30);
             var product2 = new Product("Вода", 20);
@@ -38,7 +38,7 @@ namespace VendingMachine.Tests
         }
 
         [Fact]
-        public void GetGoodsInfo_SkipsProductsWithZeroCount()
+        public void GetGoodsInfo_WhenZeroCount_SkipsPrductsInfo()
         {
             var product1 = new Product("Кола", 40);
             var product2 = new Product("Печенье", 25);
@@ -56,7 +56,7 @@ namespace VendingMachine.Tests
         }
 
         [Fact]
-        public void GetGoodsInfo_ReturnsOnlyHeader_WhenNoProductsAvailable()
+        public void GetGoodsInfo_WhenNoProductsAvailable_ReturnsOnlyHeader()
         {
             var goods = new Dictionary<Product, int>();
             var vendingMachine = new VendingMachine(goods);
@@ -68,7 +68,7 @@ namespace VendingMachine.Tests
         }
 
         [Fact]
-        public void GetGoodsInfo_UsesCorrectWordForm_ForDifferentCounts()
+        public void GetGoodsInfo_ForDifferentCounts_UsesCorrectWordForm()
         {
             var product1 = new Product("Батончик", 15);
             var product2 = new Product("Кофе", 60);
@@ -92,7 +92,7 @@ namespace VendingMachine.Tests
         }
 
         [Fact]
-        public void InsertCoin_AcceptsValidCoins_AndUpdatesCurrentMoney()
+        public void InsertCoin_WhenValidCoins_UpdatesCurrentMoney()
         {
             var goods = new Dictionary<Product, int>();
             var vendingMachine = new VendingMachine(goods);
