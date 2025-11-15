@@ -11,4 +11,6 @@ public abstract class User
     {
         EnrolledCourses.Add(course);
     }
+
+    public abstract string GetInfo();
 }
