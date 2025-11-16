@@ -8,8 +8,8 @@ public class OnlineCourse : Course
         Platform = platform;
     }
 
-    public override void DisplayCourseInfo()
+    public override string GetCourseInfo()
     {
-        Console.WriteLine($"Online Course: {CourseName} ({CourseCode}), Credits: {Credits}, Platform: {Platform}");
+        return $"Online Course: {CourseName} ({CourseCode}), Credits: {Credits}, Platform: {Platform}";
     }
 }

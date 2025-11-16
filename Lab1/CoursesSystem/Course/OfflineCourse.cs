@@ -12,8 +12,8 @@ public class OfflineCourse : Course
         Room = room;
     }
 
-    public override void DisplayCourseInfo()
+    public override string GetCourseInfo()
     {
-        Console.WriteLine($"Offline Course: {CourseName} ({CourseCode}), Credits: {Credits}, Location: {Location}, Schedule: {Schedule}");
+        return $"Offline Course: {CourseName} ({CourseCode}), Credits: {Credits}, Location: {Location}, Schedule: {Schedule}, Room: {Room}";
     }
 }

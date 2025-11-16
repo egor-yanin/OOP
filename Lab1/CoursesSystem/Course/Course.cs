@@ -16,7 +16,7 @@ public abstract class Course
         Credits = credits;
     }
 
-    public abstract void DisplayCourseInfo();
+    public abstract string GetCourseInfo();
     public List<string> GetStudentInfo()
     {
         List<string> studentInfos = new List<string>();
