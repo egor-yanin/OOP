@@ -4,6 +4,23 @@ public class CourseManager
     public List<Teacher> Teachers { get; set; }
     public List<Student> Students { get; set; }
 
+    public CourseManager()
+    {
+        Courses = new List<Course>();
+        Teachers = new List<Teacher>();
+        Students = new List<Student>();
+    }
+
+    private Course _findCourseByCode(string courseCode)
+    {
+        var course = Courses.FirstOrDefault(c => c.CourseCode == courseCode);
+        if (course == null)
+        {
+            throw new Exception("Course not found");
+        }
+        return course;
+    }
+
     public void CreateOnlineCourse(string courseName, string courseCode, int credits)
     {
         // Implementation for creating a course
