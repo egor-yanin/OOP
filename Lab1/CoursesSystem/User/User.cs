@@ -7,6 +7,15 @@ public abstract class User
 
     public List<Course> EnrolledCourses { get; set; }
 
+    public User(string name, string email, string idNumber, string department)
+    {
+        Name = name;
+        Email = email;
+        IDNumber = idNumber;
+        Department = department;
+        EnrolledCourses = new List<Course>();
+    }
+
     public void AddCourse(Course course)
     {
         EnrolledCourses.Add(course);

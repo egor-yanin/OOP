@@ -1,16 +1,15 @@
 public class Teacher : User
 {
-    public Teacher(string name, string email, string idNumber, string department)
+    public string Qualification { get; set; }
+
+    public Teacher(string name, string email, string idNumber, string department, string qualification)
+        : base(name, email, idNumber, department)
     {
-        Name = name;
-        Email = email;
-        IDNumber = idNumber;
-        Department = department;
-        EnrolledCourses = new List<Course>();
+        Qualification = qualification;
     }
 
     public override string GetInfo()
     {
-        return $"Имя учителя";
+        return $"Имя учителя{Name}\nЭл. почта: {Email}\nID: {IDNumber}\nФакультет: {Department}\nКвалификация: {Qualification}";
     }
 }

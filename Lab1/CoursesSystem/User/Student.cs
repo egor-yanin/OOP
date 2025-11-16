@@ -1,16 +1,17 @@
 public class Student : User
 {
-    public Student(string name, string email, string idNumber, string department)
+    public string Group { get; set; }
+    public string Year { get; set; }
+
+    public Student(string name, string email, string idNumber, string department, string group, string year)
+        : base(name, email, idNumber, department)
     {
-        Name = name;
-        Email = email;
-        IDNumber = idNumber;
-        Department = department;
-        EnrolledCourses = new List<Course>();
+        Group = group;
+        Year = year;
     }
 
     public override string GetInfo()
     {
-        return $"Имя студента: {Name}\nЭл. почта: {Email}\nID: {IDNumber}\nФакультет: {Department}";
+        return $"Имя студента: {Name}\nЭл. почта: {Email}\nID: {IDNumber}\nФакультет: {Department}\nГруппа: {Group}\nГод обучения: {Year}";
     }
 }
