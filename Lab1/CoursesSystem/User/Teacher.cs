@@ -2,7 +2,7 @@ public class Teacher : User
 {
     public string Qualification { get; set; }
 
-    public Teacher(string name, string email, string idNumber, string department, string qualification)
+    public Teacher(string name, string email, int idNumber, string department, string qualification)
         : base(name, email, idNumber, department)
     {
         Qualification = qualification;
