@@ -7,11 +7,13 @@ public abstract class Course
     public string CourseCode { get; set; }
     public List<Student> EnrolledStudents { get; set; } = new List<Student>();
     public List<Teacher> AssignedTeachers { get; set; } = new List<Teacher>();
+    public int CourseID { get; set; }
 
-    public Course(string courseName, string courseCode)
+    public Course(string courseName, string courseCode, int courseID)
     {
         CourseName = courseName;
         CourseCode = courseCode;
+        CourseID = courseID;
     }
 
     public abstract string GetCourseInfo();
