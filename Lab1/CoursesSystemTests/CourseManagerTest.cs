@@ -147,4 +147,92 @@ public class CourseManagerTest
         var ex = Assert.Throws<Exception>(() => manager.AssignUserToCourse(teacherID, invalidCourseID));
         Assert.Contains("Error assigning user to course", ex.Message);
     }
+
+    [Fact]
+    public void DeleteCourse_RemovesCourseFromCoursesList()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        manager.CreateOnlineCourse("Physics", "PHY101", "Zoom");
+        int courseID = manager.Courses[0].CourseID;
+
+        // Act
+        manager.DeleteCourse(courseID);
+
+        // Assert
+        Assert.Empty(manager.Courses);
+    }
+
+    [Fact]
+    public void DeleteCourse_RemovesCourseFromTeachersEnrolledCourses()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        manager.RegisterTeacher("Alice", "alice@example.com", "Physics", "PhD");
+        manager.CreateOnlineCourse("Physics", "PHY101", "Zoom");
+        int teacherID = manager.Teachers[0].IDNumber;
+        int courseID = manager.Courses[0].CourseID;
+        manager.AssignUserToCourse(teacherID, courseID);
+
+        // Act
+        manager.DeleteCourse(courseID);
+
+        // Assert
+        Assert.DoesNotContain(manager.Courses, c => c.CourseID == courseID);
+        Assert.DoesNotContain(manager.Teachers[0].EnrolledCourses, c => c.CourseID == courseID);
+    }
+
+    [Fact]
+    public void DeleteCourse_RemovesCourseFromStudentsEnrolledCourses()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        manager.RegisterStudent("Bob", "bob@example.com", "Physics", "G1", "1");
+        manager.CreateOnlineCourse("Physics", "PHY101", "Zoom");
+        int studentID = manager.Students[0].IDNumber;
+        int courseID = manager.Courses[0].CourseID;
+        manager.AssignUserToCourse(studentID, courseID);
+
+        // Act
+        manager.DeleteCourse(courseID);
+
+        // Assert
+        Assert.DoesNotContain(manager.Courses, c => c.CourseID == courseID);
+        Assert.DoesNotContain(manager.Students[0].EnrolledCourses, c => c.CourseID == courseID);
+    }
+
+    [Fact]
+    public void DeleteCourse_RemovesCourseFromAllUsersEnrolledCourses()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        manager.RegisterTeacher("Alice", "alice@example.com", "Physics", "PhD");
+        manager.RegisterStudent("Bob", "bob@example.com", "Physics", "G1", "1");
+        manager.CreateOnlineCourse("Physics", "PHY101", "Zoom");
+        int teacherID = manager.Teachers[0].IDNumber;
+        int studentID = manager.Students[0].IDNumber;
+        int courseID = manager.Courses[0].CourseID;
+        manager.AssignUserToCourse(teacherID, courseID);
+        manager.AssignUserToCourse(studentID, courseID);
+
+        // Act
+        manager.DeleteCourse(courseID);
+
+        // Assert
+        Assert.DoesNotContain(manager.Teachers[0].EnrolledCourses, c => c.CourseID == courseID);
+        Assert.DoesNotContain(manager.Students[0].EnrolledCourses, c => c.CourseID == courseID);
+    }
+
+    [Fact]
+    public void DeleteCourse_ThrowsException_WhenCourseDoesNotExist()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        int invalidCourseID = 999;
+
+        // Act & Assert
+        var ex = Assert.Throws<Exception>(() => manager.DeleteCourse(invalidCourseID));
+        Assert.Contains("Invalid Course ID", ex.Message);
+    }
 }
+
