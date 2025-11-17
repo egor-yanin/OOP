@@ -81,7 +81,7 @@ public class CourseManagerTest
     }
 
     [Fact]
-    public void AssignTeacherToCourse_AssignsTeacherAndCourseCorrectly()
+    public void AssignUserToCourse_AssignsTeacherAndCourseCorrectly()
     {
         // Arrange
         var manager = new CourseManager();
@@ -91,7 +91,7 @@ public class CourseManagerTest
         int courseID = manager.Courses[0].CourseID;
 
         // Act
-        manager.AssignTeacherToCourse(teacherID, courseID);
+        manager.AssignUserToCourse(teacherID, courseID);
 
         // Assert
         var course = manager.Courses[0];
@@ -101,35 +101,7 @@ public class CourseManagerTest
     }
 
     [Fact]
-    public void AssignTeacherToCourse_ThrowsException_WhenTeacherDoesNotExist()
-    {
-        // Arrange
-        var manager = new CourseManager();
-        manager.CreateOnlineCourse("Algebra", "ALG101", "Teams");
-        int invalidTeacherID = 999;
-        int courseID = manager.Courses[0].CourseID;
-
-        // Act & Assert
-        var ex = Assert.Throws<Exception>(() => manager.AssignTeacherToCourse(invalidTeacherID, courseID));
-        Assert.Contains("Error assigning teacher to course", ex.Message);
-    }
-
-    [Fact]
-    public void AssignTeacherToCourse_ThrowsException_WhenCourseDoesNotExist()
-    {
-        // Arrange
-        var manager = new CourseManager();
-        manager.RegisterTeacher("Alice", "alice@example.com", "Math", "PhD");
-        int teacherID = manager.Teachers[0].IDNumber;
-        int invalidCourseID = 999;
-
-        // Act & Assert
-        var ex = Assert.Throws<Exception>(() => manager.AssignTeacherToCourse(teacherID, invalidCourseID));
-        Assert.Contains("Error assigning teacher to course", ex.Message);
-    }
-
-    [Fact]
-    public void AssignTeacherToCourse_ThrowsException_WhenUserIsNotTeacher()
+    public void AssignUserToCourse_AssignsStudentAndCourseCorrectly()
     {
         // Arrange
         var manager = new CourseManager();
@@ -138,10 +110,41 @@ public class CourseManagerTest
         int studentID = manager.Students[0].IDNumber;
         int courseID = manager.Courses[0].CourseID;
 
+        // Act
+        manager.AssignUserToCourse(studentID, courseID);
+
+        // Assert
+        var course = manager.Courses[0];
+        var student = manager.Students[0];
+        Assert.Contains(student, course.EnrolledStudents);
+        Assert.Contains(course, student.EnrolledCourses);
+    }
+
+    [Fact]
+    public void AssignUserToCourse_ThrowsException_WhenUserDoesNotExist()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        manager.CreateOnlineCourse("Algebra", "ALG101", "Teams");
+        int invalidUserID = 999;
+        int courseID = manager.Courses[0].CourseID;
+
         // Act & Assert
-        var ex = Assert.Throws<Exception>(() => manager.AssignTeacherToCourse(studentID, courseID));
-        Assert.Contains("Error assigning teacher to course", ex.Message);
-        Assert.Contains("User is not a teacher", ex.Message);
+        var ex = Assert.Throws<Exception>(() => manager.AssignUserToCourse(invalidUserID, courseID));
+        Assert.Contains("Error assigning user to course", ex.Message);
+    }
+
+    [Fact]
+    public void AssignUserToCourse_ThrowsException_WhenCourseDoesNotExist()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        manager.RegisterTeacher("Alice", "alice@example.com", "Math", "PhD");
+        int teacherID = manager.Teachers[0].IDNumber;
+        int invalidCourseID = 999;
+
+        // Act & Assert
+        var ex = Assert.Throws<Exception>(() => manager.AssignUserToCourse(teacherID, invalidCourseID));
+        Assert.Contains("Error assigning user to course", ex.Message);
     }
 }
-
