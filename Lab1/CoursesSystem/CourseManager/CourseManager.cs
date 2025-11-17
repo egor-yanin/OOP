@@ -29,11 +29,12 @@ namespace CoursesSystem.CourseManager
 
         private Course _getCourseByID(int courseID)
         {
-            if (courseID < 1 || courseID > Courses.Count)
+            var course = Courses.FirstOrDefault(c => c.CourseID == courseID);
+            if (course == null)
             {
                 throw new Exception("Invalid Course ID");
             }
-            return Courses[courseID - 1];
+            return course;
         }
 
         private User _getUserByID(int userID)
