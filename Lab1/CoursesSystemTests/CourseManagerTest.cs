@@ -38,4 +38,46 @@ public class CourseManagerTest
         Assert.Equal(1, manager.Courses[0].CourseID);
         Assert.Equal(2, manager.Courses[1].CourseID);
     }
+
+    [Fact]
+    public void CreateOfflineCourse_AddsCourseToCoursesList()
+    {
+        // Arrange
+        var manager = new CourseManager();
+        string courseName = "Math 101";
+        string courseCode = "MATH101";
+        string location = "Building A";
+        string schedule = "Mon-Wed 10:00-12:00";
+        string room = "101";
+
+        // Act
+        manager.CreateOfflineCourse(courseName, courseCode, location, schedule, room);
+
+        // Assert
+        Assert.Single(manager.Courses);
+        var course = manager.Courses.First();
+        Assert.IsType<OfflineCourse>(course);
+        Assert.Equal(courseName, course.CourseName);
+        Assert.Equal(courseCode, course.CourseCode);
+        Assert.Equal(location, ((OfflineCourse)course).Location);
+        Assert.Equal(schedule, ((OfflineCourse)course).Schedule);
+        Assert.Equal(room, ((OfflineCourse)course).Room);
+    }
+
+    [Fact]
+    public void CreateOfflineCourse_AssignsIncrementalCourseID()
+    {
+        // Arrange
+        var manager = new CourseManager();
+
+        // Act
+        manager.CreateOfflineCourse("Course1", "C1", "Loc1", "Sched1", "Room1");
+        manager.CreateOfflineCourse("Course2", "C2", "Loc2", "Sched2", "Room2");
+
+        // Assert
+        Assert.Equal(2, manager.Courses.Count);
+        Assert.Equal(1, manager.Courses[0].CourseID);
+        Assert.Equal(2, manager.Courses[1].CourseID);
+    }
+
 }
