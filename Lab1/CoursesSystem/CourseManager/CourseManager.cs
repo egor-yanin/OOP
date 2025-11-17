@@ -122,9 +122,18 @@ namespace CoursesSystem.CourseManager
             }
         }
 
-        public void DeleteCourse(string courseCode)
+        public void DeleteCourse(int courseID)
         {
-            // Implementation for deleting a course
+            var course = _getCourseByID(courseID);
+            foreach (var teacher in course.AssignedTeachers)
+            {
+                teacher.EnrolledCourses.Remove(course);
+            }
+            foreach (var student in course.EnrolledStudents)
+            {
+                student.EnrolledCourses.Remove(course);
+            }
+            Courses.Remove(course);
         }
     }
 }
