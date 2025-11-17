@@ -1,8 +1,11 @@
+using System.Security.Cryptography;
+
 public class CourseManager
 {
     public List<Course> Courses { get; set; }
     public List<Teacher> Teachers { get; set; }
     public List<Student> Students { get; set; }
+    private int _nextCourseID = 1;
 
     public CourseManager()
     {
@@ -21,14 +24,27 @@ public class CourseManager
         return course;
     }
 
-    public void CreateOnlineCourse(string courseName, string courseCode, int credits)
+    private Course _getCourseByID(int courseID)
     {
-        // Implementation for creating a course
+        if (courseID < 1 || courseID > Courses.Count)
+        {
+            throw new Exception("Invalid Course ID");
+        }
+        return Courses[courseID - 1];
     }
 
-    public void CreateOfflineCourse(string courseName, string courseCode, int credits)
+    public void CreateOnlineCourse(string courseName, string courseCode, string platform)
     {
-        // Implementation for creating a course
+        var course = new OnlineCourse(courseName, courseCode, _nextCourseID, platform);
+        _nextCourseID++;
+        Courses.Add(course);
+    }
+
+    public void CreateOfflineCourse(string courseName, string courseCode, string location, string schedule, string room)
+    {
+        var course = new OfflineCourse(courseName, courseCode, _nextCourseID, location, schedule, room);
+        _nextCourseID++;
+        Courses.Add(course);
     }
 
     public void AssignTeacherToCourse(string teacherID, string courseCode)
