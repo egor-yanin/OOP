@@ -8,6 +8,7 @@ namespace CoursesSystem.CourseManager
         public List<Teacher> Teachers { get; set; }
         public List<Student> Students { get; set; }
         private int _nextCourseID = 1;
+        private int _nextUserID = 1;
 
         public CourseManager()
         {
@@ -35,6 +36,24 @@ namespace CoursesSystem.CourseManager
             return Courses[courseID - 1];
         }
 
+        private User _getUserByID(int userID)
+        {
+            if (userID < 1 || userID > (Teachers.Count + Students.Count))
+            {
+                throw new Exception("Invalid User ID");
+            }
+
+            var user = Teachers.FirstOrDefault(t => t.IDNumber == userID) as User
+                       ?? Students.FirstOrDefault(s => s.IDNumber == userID) as User;
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            return user;
+        }
+
         public void CreateOnlineCourse(string courseName, string courseCode, string platform)
         {
             var course = new OnlineCourse(courseName, courseCode, _nextCourseID, platform);
@@ -49,9 +68,37 @@ namespace CoursesSystem.CourseManager
             Courses.Add(course);
         }
 
-        public void AssignTeacherToCourse(string teacherID, string courseCode)
+        public void RegisterTeacher(string name, string email, string department, string qualification)
         {
-            // Implementation for assigning a teacher to a course
+            var teacher = new Teacher(name, email, _nextUserID, department, qualification);
+            _nextUserID++;
+            Teachers.Add(teacher);
+        }
+
+        public void RegisterStudent(string name, string email, string department, string group, string year)
+        {
+            var student = new Student(name, email, _nextUserID, department, group, year);
+            _nextUserID++;
+            Students.Add(student);
+        }
+
+        public void AssignTeacherToCourse(int teacherID, int courseID)
+        {
+            try
+            {
+                var teacher = _getUserByID(teacherID) as Teacher;
+                var course = _getCourseByID(courseID);
+                if (teacher == null)
+                {
+                    throw new Exception("User is not a teacher");
+                }
+                course.AssignedTeachers.Add(teacher);
+                teacher.EnrolledCourses.Add(course);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error assigning teacher to course: {ex.Message}");
+            }
         }
 
         public void EnrollStudentInCourse(string studentID, string courseCode)
