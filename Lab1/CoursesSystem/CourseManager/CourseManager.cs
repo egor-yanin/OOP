@@ -83,28 +83,43 @@ namespace CoursesSystem.CourseManager
             Students.Add(student);
         }
 
-        public void AssignTeacherToCourse(int teacherID, int courseID)
+        public void AssignUserToCourse(int userID, int courseID)
         {
             try
             {
-                var teacher = _getUserByID(teacherID) as Teacher;
+                var user = _getUserByID(userID);
                 var course = _getCourseByID(courseID);
-                if (teacher == null)
+
+                switch (user)
                 {
-                    throw new Exception("User is not a teacher");
+                    case Teacher teacher:
+                        if (!course.AssignedTeachers.Contains(teacher))
+                        {
+                            course.AssignedTeachers.Add(teacher);
+                        }
+                        if (!teacher.EnrolledCourses.Contains(course))
+                        {
+                            teacher.EnrolledCourses.Add(course);
+                        }
+                        break;
+                    case Student student:
+                        if (!course.EnrolledStudents.Contains(student))
+                        {
+                            course.EnrolledStudents.Add(student);
+                        }
+                        if (!student.EnrolledCourses.Contains(course))
+                        {
+                            student.EnrolledCourses.Add(course);
+                        }
+                        break;
+                    default:
+                        throw new Exception("User must be a Teacher or Student");
                 }
-                course.AssignedTeachers.Add(teacher);
-                teacher.EnrolledCourses.Add(course);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error assigning teacher to course: {ex.Message}");
+                throw new Exception($"Error assigning user to course: {ex.Message}");
             }
-        }
-
-        public void EnrollStudentInCourse(string studentID, string courseCode)
-        {
-            // Implementation for enrolling a student in a course
         }
 
         public void DeleteCourse(string courseCode)
