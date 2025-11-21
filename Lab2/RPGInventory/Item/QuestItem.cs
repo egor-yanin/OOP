@@ -8,6 +8,6 @@ public class QuestItem : IItem
 
     public void Use(Player player)
     {
-        _useStrategy.Use(this, player);
+        _useStrategy.Use(player);
     }
 }

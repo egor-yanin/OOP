@@ -8,6 +8,6 @@ public class HealPotion : IItem
     public void Use(Player player)
     {
         var strategy = new HealStrategy(this.HealAmount);
-        strategy.Use(this, player);
+        strategy.Use(player);
     }
 }
