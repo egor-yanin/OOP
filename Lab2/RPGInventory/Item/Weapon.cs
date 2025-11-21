@@ -1,5 +1,8 @@
 public class Weapon : IItem
 {
+    public string Name { get; private set; }
+    public float Weight { get; private set; }
+    public string Description { get; private set; }
     public float Damage { get; set; }
 
     public Weapon(string name, float weight, string description, float damage)
@@ -10,7 +13,7 @@ public class Weapon : IItem
         Damage = damage;
     }
 
-    void Use(Player player)
+    public void Use(Player player)
     {
         var strategy = new DamageStrategy();
         strategy.Use(this, player);
