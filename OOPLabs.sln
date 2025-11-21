@@ -3,20 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPLabs", "VendingMachine\VendingMachine.csproj", "{F68F03B4-00EB-4370-A115-2D9F03FD9C85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine", "VendingMachine\VendingMachine.csproj", "{F68F03B4-00EB-4370-A115-2D9F03FD9C85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lab2", "Lab2", "{5C42C7CA-ADAE-0159-8BF5-5EB6C7A325EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGInventory", "Lab2\RPGInventory\RPGInventory.csproj", "{92817303-C120-4F7F-8BEB-BC316D070199}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGInventoryTests", "Lab2\RPGInventoryTests\RPGInventoryTests.csproj", "{B9D3BBF5-47FD-4432-B7E3-8CA654619089}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F68F03B4-00EB-4370-A115-2D9F03FD9C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F68F03B4-00EB-4370-A115-2D9F03FD9C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F68F03B4-00EB-4370-A115-2D9F03FD9C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F68F03B4-00EB-4370-A115-2D9F03FD9C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92817303-C120-4F7F-8BEB-BC316D070199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92817303-C120-4F7F-8BEB-BC316D070199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92817303-C120-4F7F-8BEB-BC316D070199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92817303-C120-4F7F-8BEB-BC316D070199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D3BBF5-47FD-4432-B7E3-8CA654619089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D3BBF5-47FD-4432-B7E3-8CA654619089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D3BBF5-47FD-4432-B7E3-8CA654619089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D3BBF5-47FD-4432-B7E3-8CA654619089}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{92817303-C120-4F7F-8BEB-BC316D070199} = {5C42C7CA-ADAE-0159-8BF5-5EB6C7A325EF}
+		{B9D3BBF5-47FD-4432-B7E3-8CA654619089} = {5C42C7CA-ADAE-0159-8BF5-5EB6C7A325EF}
 	EndGlobalSection
 EndGlobal
