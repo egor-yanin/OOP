@@ -43,18 +43,27 @@ public class PotionBuilderTests
     }
 
     [Fact]
-    public void Build_ShouldReturnSameInstanceIfNotReset()
+    public void Build_ShouldResetBuilderState()
     {
         // Arrange
         var builder = new PotionBuilder();
-        builder.SetName("Potion1");
-        var potion1 = builder.Build();
+        builder.SetName("Potion 1");
+        builder.SetHealAmount(15);
+        var first = builder.Build();
 
-        builder.SetName("Potion2");
-        var potion2 = builder.Build();
+        // Act
+        builder.SetName("Potion 2");
+        builder.SetHealAmount(5);
+        var second = builder.Build();
 
         // Assert
-        Assert.Same(potion1, potion2);
-        Assert.Equal("Potion2", potion2.Name);
+        var potion1 = Assert.IsType<HealPotion>(first);
+        var potion2 = Assert.IsType<HealPotion>(second);
+
+        Assert.Equal("Potion 1", potion1.Name);
+        Assert.Equal(15, potion1.HealAmount);
+
+        Assert.Equal("Potion 2", potion2.Name);
+        Assert.Equal(5, potion2.HealAmount);
     }
 }

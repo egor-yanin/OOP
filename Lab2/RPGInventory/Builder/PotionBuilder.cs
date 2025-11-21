@@ -29,6 +29,8 @@ public class PotionBuilder : IItemBuilder
 
     public IItem Build()
     {
-        return _potion;
+        var result = _potion;
+        Reset();
+        return result;
     }
 }
