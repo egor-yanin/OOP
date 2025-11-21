@@ -15,7 +15,7 @@ public class Weapon : IItem
 
     public void Use(Player player)
     {
-        var strategy = new DamageStrategy();
+        var strategy = new DamageStrategy(this.Damage + player.AttackDamage);
         strategy.Use(this, player);
     }
 }
