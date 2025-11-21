@@ -11,4 +11,10 @@ public class Player
         Name = name;
         MaxCarryWeight = maxCarryWeight;
     }
+
+    public void DealDamage(float damage)
+    {
+        // Implementation of dealing damage
+        System.Console.WriteLine($"Dealed {damage} damage.");
+    }
 }
