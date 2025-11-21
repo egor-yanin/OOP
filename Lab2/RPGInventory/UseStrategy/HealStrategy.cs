@@ -7,9 +7,8 @@ public class HealStrategy : IUseStrategy
         _healAmount = healAmount;
     }
 
-    public void Use(IItem item, Player player)
+    public void Use(Player player)
     {
-        if (item is HealPotion potion)
         {
             player.Heal(_healAmount);
         }

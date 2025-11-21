@@ -7,9 +7,8 @@ public class DamageStrategy : IUseStrategy
         _damageAmount = damageAmount;
     }
 
-    public void Use(IItem item, Player player)
+    public void Use(Player player)
     {
-        if (item is Weapon weapon)
         {
             player.DealDamage(_damageAmount);
         }

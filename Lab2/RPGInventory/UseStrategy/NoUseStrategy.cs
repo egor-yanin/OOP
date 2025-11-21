@@ -1,7 +1,7 @@
 public class NoUseStrategy : IUseStrategy
 {
-    public void Use(IItem item, Player player)
+    public void Use(Player player)
     {
-        Console.WriteLine($"Item {item.Name} cannot be used.");
+        Console.WriteLine($"Item cannot be used.");
     }
 }
