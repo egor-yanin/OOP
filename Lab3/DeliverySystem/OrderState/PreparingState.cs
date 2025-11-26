@@ -24,6 +24,6 @@ public class PreparingState : IOrderState
 
     public void ProceedOrder()
     {
-        Console.WriteLine("Order is now out for delivery.");
+        _order.SetState(new DeliveryState(_order));
     }
 }
