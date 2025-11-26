@@ -1,7 +1,7 @@
 using System;
 using DeliverySystem.OrderState;
 
-namespace DeliverySystem.Order;
+namespace DeliverySystem;
 
 public abstract class Order
 {

@@ -4,9 +4,9 @@ namespace DeliverySystem.OrderState;
 
 public class DeliveryState : IOrderState
 {
-    private Order.Order _order;
+    private Order _order;
 
-    public DeliveryState(Order.Order order)
+    public DeliveryState(Order order)
     {
         _order = order;
     }

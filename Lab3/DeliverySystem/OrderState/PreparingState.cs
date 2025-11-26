@@ -1,13 +1,12 @@
 using System;
-using DeliverySystem.Order;
 
 namespace DeliverySystem.OrderState;
 
 public class PreparingState : IOrderState
 {
-    private Order.Order _order;
+    private Order _order;
 
-    public PreparingState(Order.Order order)
+    public PreparingState(Order order)
     {
         _order = order;
     }
