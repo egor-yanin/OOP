@@ -23,6 +23,6 @@ public class DeliveryState : IOrderState
 
     public void ProceedOrder()
     {
-        Console.WriteLine("Order has been delivered.");
+        _order.SetState(new CompletedState(_order));
     }
 }
