@@ -15,7 +15,7 @@ public abstract class Order
     public DateTime DeliveryDate { get; set; } = DateTime.Now;
     private IOrderState _state;
     private IPaymentStrategy _paymentStrategy;
-    private IDiscount _discount = new NoDiscount();
+    protected IDiscount _discount = new NoDiscount();
 
     public Order()
     {
