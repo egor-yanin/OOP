@@ -39,4 +39,24 @@ public abstract class Order
     {
         _state.ProceedOrder();
     }
+
+    public void AddDish(IDish dish, int quantity)
+    {
+        if (_dishes.ContainsKey(dish))
+        {
+            _dishes[dish] += quantity;
+        }
+        else
+        {
+            _dishes[dish] = quantity;
+        }
+    }
+
+    public void RemoveDish(IDish dish)
+    {
+        if (_dishes.ContainsKey(dish))
+        {
+            _dishes.Remove(dish);
+        }
+    }
 }
