@@ -23,6 +23,6 @@ public class InitializingState : IOrderState
 
     public void ProceedOrder()
     {
-        _order.SetState(new PaymentState(_order));
+        _order.SetState(new PreparingState(_order));
     }
 }
