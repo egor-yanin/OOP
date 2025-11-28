@@ -1,6 +1,6 @@
 using System;
 
-namespace DeliverySystem.IOrderBuilder;
+namespace DeliverySystem;
 
 public interface IOrderBuilder
 {
