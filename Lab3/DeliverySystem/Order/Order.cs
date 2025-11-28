@@ -48,6 +48,12 @@ public abstract class Order
         _state.ProceedOrder();
     }
 
+    public void Pay()
+    {
+        float amount = GetTotalPrice();
+        _paymentStrategy.Pay(amount);
+    }
+
     public void AddDish(IDish dish, int quantity)
     {
         if (_dishes.ContainsKey(dish))
