@@ -8,7 +8,7 @@ public abstract class Order
     public string Name { get; set; } = "";
     public string Code { get; protected set; } = "";
     public User Customer { get; protected set; } = new User();
-    protected readonly List<IDish> _dishes = new List<IDish>();
+    protected readonly Dictionary<IDish, int> _dishes = new Dictionary<IDish, int>();
     public string Address { get; protected set; } = "";
     public DateTime DeliveryDate { get; protected set; } = DateTime.Now;
     private IOrderState _state;
