@@ -24,6 +24,12 @@ public class DefaultOrderBuilder : IOrderBuilder
         return this;
     }
 
+    public IOrderBuilder SetPaymentMethod(IPaymentStrategy paymentStrategy)
+    {
+        _order.SetPaymentStrategy(paymentStrategy);
+        return this;
+    }
+
     public IOrderBuilder AddDish(IDish dish, int quantity)
     {
         _order.AddDish(dish, quantity);

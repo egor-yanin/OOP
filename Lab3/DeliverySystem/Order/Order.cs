@@ -1,5 +1,6 @@
 using System;
 using DeliverySystem.OrderState;
+using DeliverySystem.PaymentStrategy;
 
 namespace DeliverySystem;
 
@@ -17,12 +18,17 @@ public abstract class Order
     public Order()
     {
         _state = new InitializingState(this);
-        _paymentStrategy = null;
+        _paymentStrategy = new OnlinePayment();
     }
 
     public void SetState(IOrderState state)
     {
         _state = state;
+    }
+
+    public void SetPaymentStrategy(IPaymentStrategy paymentStrategy)
+    {
+        _paymentStrategy = paymentStrategy;
     }
 
     public abstract float GetTotalPrice();
