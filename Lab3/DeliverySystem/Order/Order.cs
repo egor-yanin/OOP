@@ -7,11 +7,14 @@ public abstract class Order
 {
     public string Name { get; set; } = "";
     public string Code { get; protected set; } = "";
+    public User Customer { get; protected set; } = new User();
+    public string Address { get; protected set; } = "";
+    public DateTime DeliveryDate { get; protected set; } = DateTime.Now;
     private IOrderState _state;
 
     public Order()
     {
-        _state = new PreparingState(this);
+        _state = new PaymentState(this);
     }
 
     public void SetState(IOrderState state)
