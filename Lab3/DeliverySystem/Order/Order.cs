@@ -12,10 +12,12 @@ public abstract class Order
     public string Address { get; set; } = "";
     public DateTime DeliveryDate { get; set; } = DateTime.Now;
     private IOrderState _state;
+    private IPaymentStrategy _paymentStrategy;
 
     public Order()
     {
         _state = new InitializingState(this);
+        _paymentStrategy = null;
     }
 
     public void SetState(IOrderState state)
