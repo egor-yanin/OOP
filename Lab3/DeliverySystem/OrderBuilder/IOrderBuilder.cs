@@ -8,6 +8,7 @@ public interface IOrderBuilder
     IOrderBuilder SetAddress(string address);
     IOrderBuilder SetDeliveryDate(DateTime deliveryDate);
     IOrderBuilder SetPaymentMethod(IPaymentStrategy paymentStrategy);
+    IOrderBuilder SetDiscount(IDiscount discount);
     IOrderBuilder AddDish(IDish dish, int quantity);
     Order Build();
 }

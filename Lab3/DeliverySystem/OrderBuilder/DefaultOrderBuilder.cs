@@ -30,6 +30,12 @@ public class DefaultOrderBuilder : IOrderBuilder
         return this;
     }
 
+    public IOrderBuilder SetDiscount(IDiscount discount)
+    {
+        _order.SetDiscount(discount);
+        return this;
+    }
+
     public IOrderBuilder AddDish(IDish dish, int quantity)
     {
         _order.AddDish(dish, quantity);

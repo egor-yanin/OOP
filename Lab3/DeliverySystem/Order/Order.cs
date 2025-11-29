@@ -33,6 +33,11 @@ public abstract class Order
         _paymentStrategy = paymentStrategy;
     }
 
+    public void SetDiscount(IDiscount discount)
+    {
+        _discount = discount;
+    }
+
     public abstract float GetTotalPrice();
 
     public void CheckOrder()
