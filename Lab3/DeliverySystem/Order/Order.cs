@@ -9,7 +9,7 @@ public abstract class Order
 {
     public string Code { get; set; } = "";
     public User Customer { get; set; } = null!;
-    public Courier Courier { get; set; } = null!;
+    public Courier Courier { get; private set; } = null!;
     protected readonly Dictionary<IDish, int> _dishes = new Dictionary<IDish, int>();
     public string Address { get; set; } = "";
     public DateTime DeliveryDate { get; set; } = DateTime.Now;
@@ -36,6 +36,11 @@ public abstract class Order
     public void SetDiscount(IDiscount discount)
     {
         _discount = discount;
+    }
+
+    public void AssignCourier(Courier courier)
+    {
+        Courier = courier;
     }
 
     public abstract float GetTotalPrice();
