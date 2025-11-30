@@ -4,17 +4,12 @@ namespace DeliverySystem.OrderBuilder;
 
 public class DefaultOrderBuilder : IOrderBuilder
 {
+    private OrderValidator _validator = new OrderValidator();
     private readonly DefaultOrder _order = new DefaultOrder();
 
     public IOrderBuilder SetCustomer(User user)
     {
         _order.Customer = user;
-        return this;
-    }
-
-    public IOrderBuilder SetCourier(Courier courier)
-    {
-        _order.Courier = courier;
         return this;
     }
 
@@ -26,9 +21,13 @@ public class DefaultOrderBuilder : IOrderBuilder
 
     public IOrderBuilder SetDeliveryDate(DateTime deliveryDate)
     {
-        if (deliveryDate < DateTime.Now)
+        try
         {
-            throw new ArgumentException("Delivery date cannot be in the past.");
+            _validator.ValidateDeliveryDate(deliveryDate);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new InvalidOperationException("Invalid delivery date: " + ex.Message);
         }
         _order.DeliveryDate = deliveryDate;
         return this;
@@ -48,9 +47,13 @@ public class DefaultOrderBuilder : IOrderBuilder
 
     public IOrderBuilder AddDish(IDish dish, int quantity)
     {
-        if (quantity <= 0)
+        try
         {
-            throw new ArgumentException("Quantity must be greater than zero.");
+            _validator.ValidateDishes(_order);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new InvalidOperationException("Invalid dish addition: " + ex.Message);
         }
         _order.AddDish(dish, quantity);
         return this;
@@ -58,24 +61,15 @@ public class DefaultOrderBuilder : IOrderBuilder
 
     public Order Build()
     {
-        if (string.IsNullOrEmpty(_order.Address))
-        {
-            throw new InvalidOperationException("Address is required to build an order.");
-        }
-        if (_order.Customer == null)
-        {
-            throw new InvalidOperationException("Customer is required to build an order.");
-        }
-        if (_order.Courier == null)
-        {
-            throw new InvalidOperationException("Courier is required to build an order.");
-        }
-        if (_order.GetDishes().Count == 0)
-        {
-            throw new InvalidOperationException("At least one dish is required to build an order.");
-        }
-
         _order.Code = Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
+        try
+        {
+            _validator.ValidateOrderBuilder(_order);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new InvalidOperationException("Order build failed: " + ex.Message);
+        }
         return _order;
     }
 }
