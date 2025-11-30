@@ -11,6 +11,8 @@ public class DeliveryState : IOrderState
         _order = order;
     }
 
+    public string GetStatus() => "Out for Delivery";
+
     public void CheckOrder()
     {
         Console.WriteLine("Order is out for delivery.");

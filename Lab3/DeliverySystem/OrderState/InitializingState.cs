@@ -11,6 +11,8 @@ public class InitializingState : IOrderState
         _order = order;
     }
 
+    public string GetStatus() => "Initializing";
+
     public void CheckOrder()
     {
         Console.WriteLine("Order is being checked.");

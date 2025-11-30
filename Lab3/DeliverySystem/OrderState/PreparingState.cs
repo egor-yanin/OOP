@@ -11,6 +11,8 @@ public class PreparingState : IOrderState
         _order = order;
     }
 
+    public string GetStatus() => "Preparing";
+
     public void CheckOrder()
     {
         Console.WriteLine("Order is being prepared.");

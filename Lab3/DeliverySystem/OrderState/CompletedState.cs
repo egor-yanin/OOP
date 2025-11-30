@@ -11,6 +11,8 @@ public class CompletedState : IOrderState
         _order = order;
     }
 
+    public string GetStatus() => "Completed";
+
     public void CheckOrder()
     {
         Console.WriteLine("Order is delivered.");
