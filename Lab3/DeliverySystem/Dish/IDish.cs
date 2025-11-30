@@ -8,5 +8,4 @@ public interface IDish
     string Category { get; }
     float Price { get; }
     float Weight { get; }
-    float Calorage { get; }
 }
