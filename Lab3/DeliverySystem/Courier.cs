@@ -6,7 +6,9 @@ public class Courier
 {
     public string Name { get; set; } = "";
     public string PhoneNumber { get; set; } = "";
+    private Order _currentOrder = null!;
     public float Rating { get; protected set; } = 0.0f;
+    private ICourierState _state = new CourierState.AvailableState();
 
     public Courier(string name, string phoneNumber)
     {
@@ -19,8 +21,25 @@ public class Courier
         Rating = rating;
     }
 
-    public void DeliverOrder(Order order)
+    public void SetState(ICourierState state)
     {
-        Console.WriteLine($"Courier {Name} is delivering order {order.Code} to {order.Address}");
+        _state = state;
+    }
+
+    public void AcceptOrder(Order order)
+    {
+        _state.AcceptOrder(this, order);
+        _currentOrder = order;
+    }
+
+    public void StartDelivery()
+    {
+        _state.StartDelivery(this, _currentOrder);
+    }
+
+    public void CompleteDelivery()
+    {
+        _state.CompleteDelivery(this, _currentOrder);
+        _currentOrder = null!;
     }
 }
