@@ -28,6 +28,8 @@ public abstract class Order
         _state = state;
     }
 
+    public string State => _state.GetStatus();
+
     public void SetPaymentStrategy(IPaymentStrategy paymentStrategy)
     {
         _paymentStrategy = paymentStrategy;
