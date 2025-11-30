@@ -7,9 +7,9 @@ namespace DeliverySystem;
 
 public abstract class Order
 {
-    public string Name { get; set; } = "";
     public string Code { get; set; } = "";
-    public User Customer { get; set; } = new User();
+    public User Customer { get; set; } = null!;
+    public Courier Courier { get; set; } = null!;
     protected readonly Dictionary<IDish, int> _dishes = new Dictionary<IDish, int>();
     public string Address { get; set; } = "";
     public DateTime DeliveryDate { get; set; } = DateTime.Now;
@@ -39,6 +39,11 @@ public abstract class Order
     }
 
     public abstract float GetTotalPrice();
+
+    public Dictionary<IDish, int> GetDishes()
+    {
+        return _dishes;
+    }
 
     public void CheckOrder()
     {
