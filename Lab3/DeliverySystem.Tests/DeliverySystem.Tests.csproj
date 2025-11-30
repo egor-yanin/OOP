@@ -26,4 +26,8 @@
     <ProjectReference Include="../DeliverySystem/DeliverySystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Order/" />
+  </ItemGroup>
+
 </Project>
