@@ -70,6 +70,8 @@ public class DefaultOrderBuilder : IOrderBuilder
         {
             throw new InvalidOperationException("Order build failed: " + ex.Message);
         }
+
+        _order.ProceedOrder();
         return _order;
     }
 }
