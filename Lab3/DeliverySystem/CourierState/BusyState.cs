@@ -11,6 +11,11 @@ public class BusyState : ICourierState
 
     public void StartDelivery(Courier courier, Order order)
     {
+        if (order.State != "Preparing")
+        {
+            throw new InvalidOperationException("Order is not ready for delivery");
+        }
+        order.ProceedOrder();
         Console.WriteLine($"Courier {courier.Name} started delivery of order {order.Code} to {order.Address}");
         courier.SetState(new DeliveringState());
     }
