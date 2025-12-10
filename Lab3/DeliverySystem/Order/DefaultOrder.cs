@@ -9,7 +9,7 @@ public class DefaultOrder : Order
         float total = 0;
         foreach (var dish in _dishes)
         {
-            total += _discount.ApplyDiscount(dish.Key) * dish.Value;
+            total += Discount.ApplyDiscount(dish.Key) * dish.Value;
         }
         return total;
     }
